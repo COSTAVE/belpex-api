@@ -1,7 +1,9 @@
 {
-  "functions": {
-    "api/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  }
+  "version": 2,
+  "builds": [
+    { "src": "api/belpex.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/belpex", "dest": "api/belpex.js" }
+  ]
 }
