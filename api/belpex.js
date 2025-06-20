@@ -1,27 +1,19 @@
-import * as Epex from 'https://esm.sh/@tvanlaerhoven/epex-client';
+import * as Epex from '@tvanlaerhoven/epex-client';
 
-export default async function handler(request) {
+export default async function handler(req, res) {
   try {
     const client = new Epex.Client();
     const data = await client.getDayAheadMarketData(
       Epex.MarketArea.Belgium,
       Epex.today()
     );
-
     const result = data.entries.map(e => ({
       hour: `${e.hour}:00`,
       price: (e.price * 100).toFixed(2)
     }));
-
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-    });
-
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(200).json(result);
   } catch (err) {
-    return new Response(JSON.stringify({ error: err.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    res.status(500).json({ error: err.message });
   }
 }
