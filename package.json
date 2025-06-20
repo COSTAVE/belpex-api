@@ -1,0 +1,7 @@
+{
+  "name": "belpex-api",
+  "version": "1.0.0",
+  "dependencies": {
+    "@tvanlaerhoven/epex-client": "^1.0.0"
+  }
+}
